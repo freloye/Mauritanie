@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mauritanie 2026</title>
+  <style>
+    :root{
+      --bg1:#f5e7cf;
+      --bg2:#d8b27b;
+      --text:#2f2418;
+      --card:rgba(255,255,255,0.82);
+      --border:rgba(80,55,25,0.18);
+      --shadow:0 10px 30px rgba(0,0,0,0.18);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.55), transparent 35%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width:min(760px, 100%);
+      background:var(--card);
+      backdrop-filter: blur(4px);
+      border:1px solid var(--border);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:28px;
+      text-align:center;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size:clamp(28px, 5vw, 46px);
+      letter-spacing:1px;
+    }
+    .subtitle{
+      margin:0 0 24px;
+      font-size:clamp(14px, 2.5vw, 18px);
+      opacity:0.9;
+    }
+    .cover-wrap{
+      display:flex;
+      justify-content:center;
+      margin: 8px 0 24px;
+    }
+    .cover{
+      width:min(360px, 78vw);
+      aspect-ratio:1/1;
+      object-fit:cover;
+      border-radius:18px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.18);
+      border:1px solid rgba(0,0,0,0.08);
+      background:#eee;
+    }
+    audio, video{
+      width:100%;
+      margin:12px 0 8px;
+      border-radius:12px;
+    }
+    .note{
+      margin-top:16px;
+      font-size:14px;
+      line-height:1.5;
+      opacity:0.9;
+    }
+    .status{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.6);
+      font-size:14px;
+    }
+    .footer{
+      margin-top:20px;
+      font-size:13px;
+      opacity:0.75;
+    }
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>MAURITANIE 2026</h1>
+    <p class="subtitle">Lecture de la chanson</p>
+
+    <div class="cover-wrap">
+      <img id="cover" class="cover" alt="Pochette Mauritanie 2026">
+    </div>
+
+    <audio id="player" controls preload="metadata" class="hidden">
+      Votre navigateur ne prend pas en charge la lecture audio.
+    </audio>
+
+    <video id="videoPlayer" controls preload="metadata" class="hidden">
+      Votre navigateur ne prend pas en charge la lecture vidéo.
+    </video>
+
+    <div id="status" class="status">Recherche automatique des fichiers…</div>
+
+    <p class="note">
+      Place simplement ce fichier <strong>index.html</strong> dans le même dossier que ta pochette et ton audio sur GitHub.
+      La page essaie automatiquement plusieurs noms de fichiers courants.
+    </p>
+
+    <div class="footer">Production Titus</div>
+  </main>
+
+  <script>
+    const coverCandidates = [
+      "pochette-mauritanie-2026.png",
+      "pochette-mauritanie-2026.jpg",
+      "pochette-mauritanie-2026.jpeg",
+      "pochette.png",
+      "pochette.jpg",
+      "cover.png",
+      "cover.jpg",
+      "mauritanie-2026.png",
+      "mauritanie-2026.jpg"
+    ];
+
+    const audioCandidates = [
+      "mauritanie-2026.mp3",
+      "chanson-mauritanie-2026.mp3",
+      "mauritanie2026.mp3",
+      "audio.mp3",
+      "musique.mp3",
+      "song.mp3",
+      "track.mp3",
+      "final.mp3"
+    ];
+
+    const videoCandidates = [
+      "mauritanie-2026.mp4",
+      "video.mp4",
+      "clip.mp4"
+    ];
+
+    const cover = document.getElementById("cover");
+    const player = document.getElementById("player");
+    const videoPlayer = document.getElementById("videoPlayer");
+    const statusBox = document.getElementById("status");
+
+    function fileExists(url){
+      return fetch(url, { method: "HEAD" }).then(r => r.ok).catch(() => false);
+    }
+
+    async function firstExistingFile(list){
+      for(const file of list){
+        const ok = await fileExists(file);
+        if(ok) return file;
+      }
+      return null;
+    }
+
+    async function init(){
+      const coverFile = await firstExistingFile(coverCandidates);
+      if(coverFile){
+        cover.src = coverFile;
+      } else {
+        cover.alt = "Aucune pochette trouvée";
+      }
+
+      const audioFile = await firstExistingFile(audioCandidates);
+      const videoFile = await firstExistingFile(videoCandidates);
+
+      if(audioFile){
+        player.src = audioFile;
+        player.classList.remove("hidden");
+        statusBox.innerHTML = "Lecture audio prête : <strong>" + audioFile + "</strong>";
+        return;
+      }
+
+      if(videoFile){
+        videoPlayer.src = videoFile;
+        videoPlayer.classList.remove("hidden");
+        statusBox.innerHTML = "Lecture vidéo prête : <strong>" + videoFile + "</strong>";
+        return;
+      }
+
+      statusBox.innerHTML =
+        "Aucun fichier audio ou vidéo détecté.<br>" +
+        "Ajoute par exemple <strong>mauritanie-2026.mp3</strong> et <strong>pochette.png</strong> dans le même dossier.";
+    }
+
+    init();
+  </script>
+</body>
+</html>
