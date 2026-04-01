@@ -6,18 +6,11 @@
   <title>Mauritanie 2026</title>
   <style>
     :root{
-      --sand1:#f3e3c5;
-      --sand2:#c89d60;
-      --night:#0f1520;
-      --gold:#f0d6a1;
-      --card:rgba(255,255,255,0.08);
-      --line:rgba(255,255,255,0.18);
       --text:#f8f1e6;
+      --line:rgba(255,255,255,.18);
       --shadow:0 20px 50px rgba(0,0,0,.35);
     }
-
     *{box-sizing:border-box}
-
     html,body{
       margin:0;
       min-height:100%;
@@ -27,7 +20,6 @@
         linear-gradient(180deg, #1a2331 0%, #3c2f22 45%, #8f6436 100%);
       color:var(--text);
     }
-
     body{
       display:flex;
       justify-content:center;
@@ -35,7 +27,6 @@
       padding:24px;
       overflow:hidden;
     }
-
     .bg-stars{
       position:fixed;
       inset:0;
@@ -47,15 +38,9 @@
         radial-gradient(2px 2px at 80% 60%, rgba(255,255,255,.7), transparent 55%),
         radial-gradient(1.5px 1.5px at 35% 70%, rgba(255,255,255,.7), transparent 55%),
         radial-gradient(2px 2px at 55% 15%, rgba(255,255,255,.8), transparent 55%);
-      animation: twinkle 7s linear infinite;
+      animation:twinkle 7s linear infinite;
     }
-
-    @keyframes twinkle{
-      0%{opacity:.20}
-      50%{opacity:.40}
-      100%{opacity:.20}
-    }
-
+    @keyframes twinkle{0%{opacity:.20}50%{opacity:.40}100%{opacity:.20}}
     .bg-vignette{
       position:fixed;
       inset:0;
@@ -65,20 +50,19 @@
 
     .main{
       position:relative;
-      width:min(1100px, 100%);
-      min-height:min(90vh, 860px);
+      width:min(1180px, 100%);
+      min-height:min(90vh, 900px);
       border:1px solid var(--line);
       background:
         linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)),
         rgba(10,12,17,.28);
-      backdrop-filter: blur(6px);
+      backdrop-filter:blur(6px);
       border-radius:28px;
       box-shadow:var(--shadow);
       overflow:hidden;
       display:grid;
-      grid-template-columns: minmax(280px, 360px) 1fr;
+      grid-template-columns:minmax(280px, 360px) 1fr;
     }
-
     .left{
       padding:36px 30px 30px;
       border-right:1px solid var(--line);
@@ -86,25 +70,21 @@
       flex-direction:column;
       justify-content:center;
       gap:22px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      transition:opacity .35s ease, transform .35s ease;
     }
-
     .disc-wrap{
       position:relative;
       width:min(280px, 72vw);
       margin:0 auto;
     }
-
     .glow{
-      position:absolute;
-      inset:-10%;
+      position:absolute; inset:-10%;
       border-radius:50%;
       background:radial-gradient(circle, rgba(255,214,140,.22), transparent 60%);
       filter:blur(18px);
       z-index:0;
     }
-
     .disc{
       position:relative;
       z-index:1;
@@ -114,31 +94,20 @@
       display:block;
       border-radius:50%;
       box-shadow:0 12px 36px rgba(0,0,0,.35);
-      animation: spin 14s linear infinite;
-      animation-play-state: paused;
+      animation:spin 14s linear infinite;
+      animation-play-state:paused;
       transform-origin:center center;
     }
+    .main.playing .disc{animation-play-state:running}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
-    .main.playing .disc{
-      animation-play-state: running;
-    }
-
-    @keyframes spin{
-      from{transform:rotate(0deg)}
-      to{transform:rotate(360deg)}
-    }
-
-    .title{
-      text-align:center;
-    }
-
+    .title{text-align:center}
     .title h1{
       margin:0;
       font-size:clamp(30px, 4vw, 48px);
       letter-spacing:1px;
       color:#fff4df;
     }
-
     .title p{
       margin:10px 0 0;
       font-size:clamp(14px, 1.8vw, 18px);
@@ -153,7 +122,6 @@
       gap:12px;
       flex-wrap:wrap;
     }
-
     button{
       border:1px solid rgba(255,255,255,.22);
       background:rgba(255,255,255,.08);
@@ -164,13 +132,11 @@
       font-size:15px;
       transition:transform .15s ease, background .2s ease, border-color .2s ease;
     }
-
     button:hover{
       transform:translateY(-1px);
       background:rgba(255,255,255,.14);
       border-color:rgba(255,255,255,.32);
     }
-
     .hint{
       text-align:center;
       font-size:13px;
@@ -183,15 +149,19 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:24px;
-      background:
-        radial-gradient(circle at center, rgba(255,255,255,.05), transparent 55%);
+      padding:24px 24px 70px;
+      background:radial-gradient(circle at center, rgba(255,255,255,.05), transparent 55%);
+      overflow:hidden;
     }
-
+    .video-shell{
+      position:relative;
+      width:100%;
+      max-width:820px;
+    }
     video{
       width:100%;
-      max-width:760px;
-      max-height:80vh;
+      max-height:78vh;
+      display:block;
       border-radius:20px;
       background:#000;
       box-shadow:0 12px 36px rgba(0,0,0,.35);
@@ -208,16 +178,14 @@
       background:
         linear-gradient(180deg, rgba(4,8,14,.78), rgba(24,18,12,.62)),
         radial-gradient(circle at center, rgba(255,221,167,.10), transparent 40%);
-      z-index:3;
+      z-index:5;
       transition:opacity .7s ease, visibility .7s ease;
     }
-
     .overlay.hidden{
       opacity:0;
       visibility:hidden;
       pointer-events:none;
     }
-
     .overlay-card{
       width:min(760px, 100%);
       text-align:center;
@@ -226,9 +194,8 @@
       background:rgba(255,255,255,.06);
       box-shadow:var(--shadow);
       padding:34px 26px 30px;
-      backdrop-filter: blur(5px);
+      backdrop-filter:blur(5px);
     }
-
     .cinema{
       font-size:13px;
       letter-spacing:3px;
@@ -236,14 +203,12 @@
       opacity:.78;
       margin-bottom:18px;
     }
-
     .overlay h2{
       margin:0 0 14px;
       font-size:clamp(34px, 5vw, 62px);
       color:#fff5df;
       letter-spacing:1px;
     }
-
     .overlay p{
       margin:0 auto 22px;
       max-width:620px;
@@ -252,31 +217,167 @@
       color:#f7ead4;
       opacity:.95;
     }
-
     .launch{
       font-size:18px;
       padding:15px 26px;
       background:linear-gradient(180deg, rgba(242,215,162,.30), rgba(242,215,162,.12));
       border-color:rgba(255,244,223,.35);
     }
+    .small{margin-top:14px; font-size:13px; opacity:.78}
 
-    .small{
-      margin-top:14px;
-      font-size:13px;
-      opacity:.78;
+    .title-fade{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      z-index:4;
+      pointer-events:none;
+      opacity:0;
+      transition:opacity .8s ease;
+    }
+    .title-fade.show{opacity:1}
+    .title-fade.hide{opacity:0}
+    .title-fade .inner{
+      padding:24px 36px;
+      background:linear-gradient(180deg, rgba(0,0,0,.34), rgba(0,0,0,.10));
+      border-radius:22px;
+      backdrop-filter:blur(3px);
+    }
+    .title-fade h2{
+      margin:0;
+      font-size:clamp(34px, 6vw, 72px);
+      letter-spacing:2px;
+      color:#fff6e6;
+    }
+    .title-fade p{
+      margin:10px 0 0;
+      font-size:clamp(14px, 2vw, 22px);
+      color:#f2e3c8;
+      letter-spacing:2px;
+      text-transform:uppercase;
     }
 
-    @media (max-width: 860px){
-      .main{
-        grid-template-columns: 1fr;
-      }
-      .left{
-        border-right:none;
-        border-bottom:1px solid var(--line);
-      }
-      video{
-        max-height:55vh;
-      }
+    .custom-controls{
+      position:absolute;
+      left:28px;
+      right:28px;
+      bottom:18px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.34);
+      backdrop-filter:blur(6px);
+      border-radius:18px;
+      z-index:3;
+      transition:opacity .25s ease, transform .25s ease;
+    }
+    .custom-controls.hidden{
+      opacity:0;
+      transform:translateY(10px);
+      pointer-events:none;
+    }
+    .icon-btn{
+      min-width:48px;
+      padding:10px 14px;
+      border-radius:14px;
+    }
+    .time{
+      min-width:110px;
+      text-align:center;
+      font-size:14px;
+      color:#fff3dd;
+      opacity:.95;
+    }
+    .slider-wrap{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex:1;
+      min-width:0;
+    }
+    .label-mini{
+      font-size:13px;
+      opacity:.84;
+      white-space:nowrap;
+    }
+
+    input[type="range"]{
+      -webkit-appearance:none;
+      appearance:none;
+      width:100%;
+      height:6px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+      outline:none;
+      cursor:pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      appearance:none;
+      width:16px;
+      height:16px;
+      border-radius:50%;
+      background:#fff1d7;
+      border:none;
+      box-shadow:0 0 0 2px rgba(0,0,0,.15);
+    }
+    input[type="range"]::-moz-range-thumb{
+      width:16px; height:16px; border-radius:50%;
+      background:#fff1d7; border:none;
+    }
+
+    .fullscreen-active .left{
+      opacity:0;
+      transform:translateX(-30px);
+      pointer-events:none;
+    }
+    .fullscreen-active .main{
+      grid-template-columns:1fr;
+      background:#000;
+      border:none;
+      border-radius:0;
+      width:100vw;
+      min-height:100vh;
+    }
+    .fullscreen-active .right{
+      padding:0;
+      background:#000;
+    }
+    .fullscreen-active .video-shell{
+      max-width:none;
+      width:100vw;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+    }
+    .fullscreen-active video{
+      width:100vw;
+      height:100vh;
+      max-height:none;
+      border-radius:0;
+      border:none;
+      box-shadow:none;
+      object-fit:contain;
+      background:#000;
+    }
+    .fullscreen-active .title-fade .inner{
+      background:transparent;
+      backdrop-filter:none;
+    }
+
+    @media (max-width: 900px){
+      .main{grid-template-columns:1fr}
+      .left{border-right:none;border-bottom:1px solid var(--line)}
+      .right{padding-bottom:82px}
+      video{max-height:56vh}
+      .custom-controls{left:16px; right:16px; bottom:12px; flex-wrap:wrap}
+      .time{min-width:auto}
     }
   </style>
 </head>
@@ -285,7 +386,7 @@
   <div class="bg-vignette"></div>
 
   <main class="main" id="main">
-    <section class="left">
+    <section class="left" id="leftPanel">
       <div class="disc-wrap">
         <div class="glow"></div>
         <img src="pochette.png" alt="Pochette Mauritanie 2026" class="disc">
@@ -299,40 +400,100 @@
       <div class="controls">
         <button id="playBtn">Lecture</button>
         <button id="pauseBtn">Pause</button>
+        <button id="fullscreenBtn">Plein écran</button>
       </div>
 
       <div class="hint">
-        La vidéo se lance avec le son, l’audio monte progressivement, puis la lecture continue en boucle jusqu’à l’arrêt par l’utilisateur.
+        Affichage immersif, titre en fondu, volume progressif, lecture en boucle, contrôles vidéo personnalisés.
       </div>
     </section>
 
-    <section class="right">
-      <video id="video" loop playsinline preload="auto" poster="pochette.png">
-        <source src="mauritanie-hub.mp4" type="video/mp4">
-        Votre navigateur ne prend pas en charge la lecture vidéo.
-      </video>
+    <section class="right" id="rightPanel">
+      <div class="video-shell" id="videoShell">
+        <video id="video" loop playsinline preload="auto" poster="pochette.png">
+          <source src="mauritanie-hub.mp4" type="video/mp4">
+          Votre navigateur ne prend pas en charge la lecture vidéo.
+        </video>
 
-      <div class="overlay" id="overlay">
-        <div class="overlay-card">
-          <div class="cinema">Projection privée</div>
-          <h2>MAURITANIE 2026</h2>
-          <p>Un départ, la piste, les oasis, les pierres, les visages et le vent du désert.</p>
-          <button class="launch" id="launchBtn">▶ Entrer dans le film</button>
-          <div class="small">Lecture avec le son • boucle continue • arrêt à la demande</div>
+        <div class="title-fade" id="titleFade">
+          <div class="inner">
+            <h2>MAURITANIE 2026</h2>
+            <p>Le désert s’ouvre pas à pas</p>
+          </div>
+        </div>
+
+        <div class="overlay" id="overlay">
+          <div class="overlay-card">
+            <div class="cinema">Projection privée</div>
+            <h2>MAURITANIE 2026</h2>
+            <p>Un départ, la piste, les oasis, les pierres, les visages et le vent du désert.</p>
+            <button class="launch" id="launchBtn">▶ Entrer dans le film</button>
+            <div class="small">Lecture avec le son • boucle continue • arrêt à la demande</div>
+          </div>
+        </div>
+
+        <div class="custom-controls" id="customControls">
+          <button class="icon-btn" id="playPauseInline">▶</button>
+          <div class="time" id="timeDisplay">00:00 / 00:00</div>
+
+          <div class="slider-wrap">
+            <span class="label-mini">Temps</span>
+            <input type="range" id="seekBar" min="0" max="100" value="0">
+          </div>
+
+          <div class="slider-wrap" style="max-width:180px;">
+            <span class="label-mini">Volume</span>
+            <input type="range" id="volumeBar" min="0" max="100" value="100">
+          </div>
+
+          <button class="icon-btn" id="fullscreenInline">⛶</button>
         </div>
       </div>
     </section>
   </main>
 
   <script>
+    const body = document.body;
     const main = document.getElementById('main');
     const video = document.getElementById('video');
     const overlay = document.getElementById('overlay');
     const launchBtn = document.getElementById('launchBtn');
     const playBtn = document.getElementById('playBtn');
     const pauseBtn = document.getElementById('pauseBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const fullscreenInline = document.getElementById('fullscreenInline');
+    const playPauseInline = document.getElementById('playPauseInline');
+    const seekBar = document.getElementById('seekBar');
+    const volumeBar = document.getElementById('volumeBar');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const customControls = document.getElementById('customControls');
+    const titleFade = document.getElementById('titleFade');
+    const videoShell = document.getElementById('videoShell');
 
     let fadeInterval = null;
+    let controlsTimer = null;
+    let titleTimer1 = null;
+    let titleTimer2 = null;
+
+    function formatTime(seconds){
+      if (!isFinite(seconds)) return '00:00';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    function updateTimeDisplay(){
+      timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+      if (isFinite(video.duration) && video.duration > 0){
+        seekBar.value = (video.currentTime / video.duration) * 100;
+      } else {
+        seekBar.value = 0;
+      }
+    }
+
+    function updatePlayIcon(){
+      playPauseInline.textContent = video.paused ? '▶' : '❚❚';
+    }
 
     function fadeInAudio(targetVolume = 1, duration = 3500){
       if (fadeInterval) clearInterval(fadeInterval);
@@ -340,14 +501,72 @@
       const steps = Math.max(1, Math.floor(duration / stepTime));
       const step = targetVolume / steps;
       video.volume = 0;
+      volumeBar.value = 0;
       fadeInterval = setInterval(() => {
         const next = Math.min(targetVolume, video.volume + step);
         video.volume = next;
+        volumeBar.value = Math.round(next * 100);
         if (next >= targetVolume) {
           clearInterval(fadeInterval);
           fadeInterval = null;
         }
       }, stepTime);
+    }
+
+    function showTitleIntro(){
+      clearTimeout(titleTimer1);
+      clearTimeout(titleTimer2);
+      titleFade.classList.remove('hide');
+      titleFade.classList.add('show');
+      titleTimer1 = setTimeout(() => {
+        titleFade.classList.add('hide');
+      }, 2800);
+      titleTimer2 = setTimeout(() => {
+        titleFade.classList.remove('show');
+        titleFade.classList.remove('hide');
+      }, 3900);
+    }
+
+    function enterFullscreen(){
+      if (!document.fullscreenElement){
+        if (main.requestFullscreen) {
+          main.requestFullscreen().catch(() => {});
+        }
+      }
+    }
+
+    function exitFullscreen(){
+      if (document.fullscreenElement){
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function toggleFullscreen(){
+      if (!document.fullscreenElement){
+        enterFullscreen();
+      } else {
+        exitFullscreen();
+      }
+    }
+
+    function markFullscreenState(){
+      if (document.fullscreenElement){
+        body.classList.add('fullscreen-active');
+      } else {
+        body.classList.remove('fullscreen-active');
+        customControls.classList.remove('hidden');
+      }
+    }
+
+    function showControlsTemporarily(){
+      if (!document.fullscreenElement) return;
+      customControls.classList.remove('hidden');
+      clearTimeout(controlsTimer);
+      controlsTimer = setTimeout(() => {
+        if (!video.paused){
+          customControls.classList.add('hidden');
+        }
+      }, 1800);
     }
 
     function startExperience(){
@@ -357,13 +576,21 @@
       if (promise !== undefined) {
         promise.then(() => {
           main.classList.add('playing');
+          updatePlayIcon();
+          showTitleIntro();
           fadeInAudio(1, 3500);
+          enterFullscreen();
+          showControlsTemporarily();
         }).catch(() => {
           overlay.classList.remove('hidden');
         });
       } else {
         main.classList.add('playing');
+        updatePlayIcon();
+        showTitleIntro();
         fadeInAudio(1, 3500);
+        enterFullscreen();
+        showControlsTemporarily();
       }
     }
 
@@ -372,24 +599,86 @@
       if (promise !== undefined) {
         promise.then(() => {
           main.classList.add('playing');
+          updatePlayIcon();
+          showControlsTemporarily();
         }).catch(() => {});
       } else {
         main.classList.add('playing');
+        updatePlayIcon();
+        showControlsTemporarily();
       }
     }
 
     function pauseVideo(){
       video.pause();
       main.classList.remove('playing');
+      updatePlayIcon();
+      customControls.classList.remove('hidden');
     }
 
     launchBtn.addEventListener('click', startExperience);
     playBtn.addEventListener('click', resumeVideo);
     pauseBtn.addEventListener('click', pauseVideo);
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    fullscreenInline.addEventListener('click', toggleFullscreen);
 
-    video.addEventListener('play', () => main.classList.add('playing'));
-    video.addEventListener('pause', () => main.classList.remove('playing'));
-    video.addEventListener('ended', () => main.classList.add('playing'));
+    playPauseInline.addEventListener('click', () => {
+      if (video.paused) resumeVideo();
+      else pauseVideo();
+    });
+
+    seekBar.addEventListener('input', () => {
+      if (isFinite(video.duration) && video.duration > 0){
+        video.currentTime = (seekBar.value / 100) * video.duration;
+      }
+    });
+
+    volumeBar.addEventListener('input', () => {
+      const v = Math.max(0, Math.min(1, volumeBar.value / 100));
+      video.volume = v;
+    });
+
+    video.addEventListener('timeupdate', updateTimeDisplay);
+    video.addEventListener('loadedmetadata', updateTimeDisplay);
+    video.addEventListener('play', () => {
+      main.classList.add('playing');
+      updatePlayIcon();
+    });
+    video.addEventListener('pause', () => {
+      main.classList.remove('playing');
+      updatePlayIcon();
+      customControls.classList.remove('hidden');
+    });
+    video.addEventListener('dblclick', toggleFullscreen);
+
+    document.addEventListener('fullscreenchange', () => {
+      markFullscreenState();
+      showControlsTemporarily();
+    });
+
+    document.addEventListener('mousemove', showControlsTemporarily);
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space'){
+        e.preventDefault();
+        if (video.paused) resumeVideo();
+        else pauseVideo();
+      }
+      if (e.key.toLowerCase() === 'f'){
+        toggleFullscreen();
+      }
+      if (e.key === 'Escape'){
+        customControls.classList.remove('hidden');
+      }
+      showControlsTemporarily();
+    });
+
+    videoShell.addEventListener('mousemove', showControlsTemporarily);
+    videoShell.addEventListener('click', showControlsTemporarily);
+
+    volumeBar.value = 100;
+    video.volume = 1;
+    updateTimeDisplay();
+    updatePlayIcon();
   </script>
 </body>
 </html>
