@@ -6,192 +6,390 @@
   <title>Mauritanie 2026</title>
   <style>
     :root{
-      --bg1:#f5e7cf;
-      --bg2:#d8b27b;
-      --text:#2f2418;
-      --card:rgba(255,255,255,0.82);
-      --border:rgba(80,55,25,0.18);
-      --shadow:0 10px 30px rgba(0,0,0,0.18);
+      --sand1:#f3e3c5;
+      --sand2:#c89d60;
+      --night:#0f1520;
+      --gold:#f0d6a1;
+      --card:rgba(255,255,255,0.08);
+      --line:rgba(255,255,255,0.18);
+      --text:#f8f1e6;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
     }
+
     *{box-sizing:border-box}
-    body{
+
+    html,body{
       margin:0;
-      min-height:100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color:var(--text);
+      min-height:100%;
+      font-family:Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top, rgba(255,255,255,0.55), transparent 35%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,0.05), transparent 35%),
+        linear-gradient(180deg, #1a2331 0%, #3c2f22 45%, #8f6436 100%);
+      color:var(--text);
+    }
+
+    body{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:24px;
+      overflow:hidden;
+    }
+
+    .bg-stars{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.35;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.8), transparent 55%),
+        radial-gradient(1.5px 1.5px at 70% 25%, rgba(255,255,255,.8), transparent 55%),
+        radial-gradient(2px 2px at 80% 60%, rgba(255,255,255,.7), transparent 55%),
+        radial-gradient(1.5px 1.5px at 35% 70%, rgba(255,255,255,.7), transparent 55%),
+        radial-gradient(2px 2px at 55% 15%, rgba(255,255,255,.8), transparent 55%);
+      animation: twinkle 7s linear infinite;
+    }
+
+    @keyframes twinkle{
+      0%{opacity:.20}
+      50%{opacity:.40}
+      100%{opacity:.20}
+    }
+
+    .bg-vignette{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:radial-gradient(circle, transparent 35%, rgba(0,0,0,.42) 100%);
+    }
+
+    .main{
+      position:relative;
+      width:min(1100px, 100%);
+      min-height:min(90vh, 860px);
+      border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)),
+        rgba(10,12,17,.28);
+      backdrop-filter: blur(6px);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: minmax(280px, 360px) 1fr;
+    }
+
+    .left{
+      padding:36px 30px 30px;
+      border-right:1px solid var(--line);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+
+    .disc-wrap{
+      position:relative;
+      width:min(280px, 72vw);
+      margin:0 auto;
+    }
+
+    .glow{
+      position:absolute;
+      inset:-10%;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,214,140,.22), transparent 60%);
+      filter:blur(18px);
+      z-index:0;
+    }
+
+    .disc{
+      position:relative;
+      z-index:1;
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:contain;
+      display:block;
+      border-radius:50%;
+      box-shadow:0 12px 36px rgba(0,0,0,.35);
+      animation: spin 14s linear infinite;
+      animation-play-state: paused;
+      transform-origin:center center;
+    }
+
+    .main.playing .disc{
+      animation-play-state: running;
+    }
+
+    @keyframes spin{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+
+    .title{
+      text-align:center;
+    }
+
+    .title h1{
+      margin:0;
+      font-size:clamp(30px, 4vw, 48px);
+      letter-spacing:1px;
+      color:#fff4df;
+    }
+
+    .title p{
+      margin:10px 0 0;
+      font-size:clamp(14px, 1.8vw, 18px);
+      line-height:1.5;
+      color:#f4e5cc;
+      opacity:.95;
+    }
+
+    .controls{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:1px solid rgba(255,255,255,.22);
+      background:rgba(255,255,255,.08);
+      color:#fff8ed;
+      padding:12px 18px;
+      border-radius:999px;
+      cursor:pointer;
+      font-size:15px;
+      transition:transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+
+    button:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.14);
+      border-color:rgba(255,255,255,.32);
+    }
+
+    .hint{
+      text-align:center;
+      font-size:13px;
+      opacity:.82;
+      line-height:1.45;
+    }
+
+    .right{
+      position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:24px;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,.05), transparent 55%);
     }
-    .card{
+
+    video{
+      width:100%;
+      max-width:760px;
+      max-height:80vh;
+      border-radius:20px;
+      background:#000;
+      box-shadow:0 12px 36px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:
+        linear-gradient(180deg, rgba(4,8,14,.78), rgba(24,18,12,.62)),
+        radial-gradient(circle at center, rgba(255,221,167,.10), transparent 40%);
+      z-index:3;
+      transition:opacity .7s ease, visibility .7s ease;
+    }
+
+    .overlay.hidden{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+
+    .overlay-card{
       width:min(760px, 100%);
-      background:var(--card);
-      backdrop-filter: blur(4px);
-      border:1px solid var(--border);
-      border-radius:24px;
-      box-shadow:var(--shadow);
-      padding:28px;
       text-align:center;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:26px;
+      background:rgba(255,255,255,.06);
+      box-shadow:var(--shadow);
+      padding:34px 26px 30px;
+      backdrop-filter: blur(5px);
     }
-    h1{
-      margin:0 0 8px;
-      font-size:clamp(28px, 5vw, 46px);
+
+    .cinema{
+      font-size:13px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      opacity:.78;
+      margin-bottom:18px;
+    }
+
+    .overlay h2{
+      margin:0 0 14px;
+      font-size:clamp(34px, 5vw, 62px);
+      color:#fff5df;
       letter-spacing:1px;
     }
-    .subtitle{
-      margin:0 0 24px;
-      font-size:clamp(14px, 2.5vw, 18px);
-      opacity:0.9;
+
+    .overlay p{
+      margin:0 auto 22px;
+      max-width:620px;
+      font-size:clamp(15px, 2vw, 20px);
+      line-height:1.6;
+      color:#f7ead4;
+      opacity:.95;
     }
-    .cover-wrap{
-      display:flex;
-      justify-content:center;
-      margin: 8px 0 24px;
+
+    .launch{
+      font-size:18px;
+      padding:15px 26px;
+      background:linear-gradient(180deg, rgba(242,215,162,.30), rgba(242,215,162,.12));
+      border-color:rgba(255,244,223,.35);
     }
-    .cover{
-      width:min(360px, 78vw);
-      aspect-ratio:1/1;
-      object-fit:cover;
-      border-radius:18px;
-      box-shadow:0 8px 24px rgba(0,0,0,0.18);
-      border:1px solid rgba(0,0,0,0.08);
-      background:#eee;
-    }
-    audio, video{
-      width:100%;
-      margin:12px 0 8px;
-      border-radius:12px;
-    }
-    .note{
-      margin-top:16px;
-      font-size:14px;
-      line-height:1.5;
-      opacity:0.9;
-    }
-    .status{
+
+    .small{
       margin-top:14px;
-      padding:12px 14px;
-      border-radius:12px;
-      background:rgba(255,255,255,0.6);
-      font-size:14px;
-    }
-    .footer{
-      margin-top:20px;
       font-size:13px;
-      opacity:0.75;
+      opacity:.78;
     }
-    .hidden{display:none}
+
+    @media (max-width: 860px){
+      .main{
+        grid-template-columns: 1fr;
+      }
+      .left{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+      }
+      video{
+        max-height:55vh;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>MAURITANIE 2026</h1>
-    <p class="subtitle">Lecture de la chanson</p>
+  <div class="bg-stars"></div>
+  <div class="bg-vignette"></div>
 
-    <div class="cover-wrap">
-      <img id="cover" class="cover" alt="Pochette Mauritanie 2026">
-    </div>
+  <main class="main" id="main">
+    <section class="left">
+      <div class="disc-wrap">
+        <div class="glow"></div>
+        <img src="pochette.png" alt="Pochette Mauritanie 2026" class="disc">
+      </div>
 
-    <audio id="player" controls preload="metadata" class="hidden">
-      Votre navigateur ne prend pas en charge la lecture audio.
-    </audio>
+      <div class="title">
+        <h1>MAURITANIE 2026</h1>
+        <p>Voyage en Mauritanie en mars 2026 de Marie-Jo et de Michel</p>
+      </div>
 
-    <video id="videoPlayer" controls preload="metadata" class="hidden">
-      Votre navigateur ne prend pas en charge la lecture vidéo.
-    </video>
+      <div class="controls">
+        <button id="playBtn">Lecture</button>
+        <button id="pauseBtn">Pause</button>
+      </div>
 
-    <div id="status" class="status">Recherche automatique des fichiers…</div>
+      <div class="hint">
+        La vidéo se lance avec le son, l’audio monte progressivement, puis la lecture continue en boucle jusqu’à l’arrêt par l’utilisateur.
+      </div>
+    </section>
 
-    <p class="note">
-      Place simplement ce fichier <strong>index.html</strong> dans le même dossier que ta pochette et ton audio sur GitHub.
-      La page essaie automatiquement plusieurs noms de fichiers courants.
-    </p>
+    <section class="right">
+      <video id="video" loop playsinline preload="auto" poster="pochette.png">
+        <source src="mauritanie-hub.mp4" type="video/mp4">
+        Votre navigateur ne prend pas en charge la lecture vidéo.
+      </video>
 
-    <div class="footer">Production Titus</div>
+      <div class="overlay" id="overlay">
+        <div class="overlay-card">
+          <div class="cinema">Projection privée</div>
+          <h2>MAURITANIE 2026</h2>
+          <p>Un départ, la piste, les oasis, les pierres, les visages et le vent du désert.</p>
+          <button class="launch" id="launchBtn">▶ Entrer dans le film</button>
+          <div class="small">Lecture avec le son • boucle continue • arrêt à la demande</div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
-    const coverCandidates = [
-      "pochette-mauritanie-2026.png",
-      "pochette-mauritanie-2026.jpg",
-      "pochette-mauritanie-2026.jpeg",
-      "pochette.png",
-      "pochette.jpg",
-      "cover.png",
-      "cover.jpg",
-      "mauritanie-2026.png",
-      "mauritanie-2026.jpg"
-    ];
+    const main = document.getElementById('main');
+    const video = document.getElementById('video');
+    const overlay = document.getElementById('overlay');
+    const launchBtn = document.getElementById('launchBtn');
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
 
-    const audioCandidates = [
-      "mauritanie-2026.mp3",
-      "chanson-mauritanie-2026.mp3",
-      "mauritanie2026.mp3",
-      "audio.mp3",
-      "musique.mp3",
-      "song.mp3",
-      "track.mp3",
-      "final.mp3"
-    ];
+    let fadeInterval = null;
 
-    const videoCandidates = [
-      "mauritanie-2026.mp4",
-      "video.mp4",
-      "clip.mp4"
-    ];
-
-    const cover = document.getElementById("cover");
-    const player = document.getElementById("player");
-    const videoPlayer = document.getElementById("videoPlayer");
-    const statusBox = document.getElementById("status");
-
-    function fileExists(url){
-      return fetch(url, { method: "HEAD" }).then(r => r.ok).catch(() => false);
+    function fadeInAudio(targetVolume = 1, duration = 3500){
+      if (fadeInterval) clearInterval(fadeInterval);
+      const stepTime = 120;
+      const steps = Math.max(1, Math.floor(duration / stepTime));
+      const step = targetVolume / steps;
+      video.volume = 0;
+      fadeInterval = setInterval(() => {
+        const next = Math.min(targetVolume, video.volume + step);
+        video.volume = next;
+        if (next >= targetVolume) {
+          clearInterval(fadeInterval);
+          fadeInterval = null;
+        }
+      }, stepTime);
     }
 
-    async function firstExistingFile(list){
-      for(const file of list){
-        const ok = await fileExists(file);
-        if(ok) return file;
-      }
-      return null;
-    }
-
-    async function init(){
-      const coverFile = await firstExistingFile(coverCandidates);
-      if(coverFile){
-        cover.src = coverFile;
+    function startExperience(){
+      overlay.classList.add('hidden');
+      video.currentTime = 0;
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.then(() => {
+          main.classList.add('playing');
+          fadeInAudio(1, 3500);
+        }).catch(() => {
+          overlay.classList.remove('hidden');
+        });
       } else {
-        cover.alt = "Aucune pochette trouvée";
+        main.classList.add('playing');
+        fadeInAudio(1, 3500);
       }
-
-      const audioFile = await firstExistingFile(audioCandidates);
-      const videoFile = await firstExistingFile(videoCandidates);
-
-      if(audioFile){
-        player.src = audioFile;
-        player.classList.remove("hidden");
-        statusBox.innerHTML = "Lecture audio prête : <strong>" + audioFile + "</strong>";
-        return;
-      }
-
-      if(videoFile){
-        videoPlayer.src = videoFile;
-        videoPlayer.classList.remove("hidden");
-        statusBox.innerHTML = "Lecture vidéo prête : <strong>" + videoFile + "</strong>";
-        return;
-      }
-
-      statusBox.innerHTML =
-        "Aucun fichier audio ou vidéo détecté.<br>" +
-        "Ajoute par exemple <strong>mauritanie-2026.mp3</strong> et <strong>pochette.png</strong> dans le même dossier.";
     }
 
-    init();
+    function resumeVideo(){
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.then(() => {
+          main.classList.add('playing');
+        }).catch(() => {});
+      } else {
+        main.classList.add('playing');
+      }
+    }
+
+    function pauseVideo(){
+      video.pause();
+      main.classList.remove('playing');
+    }
+
+    launchBtn.addEventListener('click', startExperience);
+    playBtn.addEventListener('click', resumeVideo);
+    pauseBtn.addEventListener('click', pauseVideo);
+
+    video.addEventListener('play', () => main.classList.add('playing'));
+    video.addEventListener('pause', () => main.classList.remove('playing'));
+    video.addEventListener('ended', () => main.classList.add('playing'));
   </script>
 </body>
 </html>
